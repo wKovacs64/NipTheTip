@@ -1,5 +1,5 @@
 # Nip the Tip
-*Nip the Tip is a simple tip calculator and bill divider for Android™.*
+*A simple tip calculator and bill divider for Android™.*
 
 Figuring out how much you should add to the total bill for a tip, or how much everyone should pay when ordering as a group can be difficult. Nip that process in the bud and let Nip the Tip do the math for you! It calculates the tip percentage, tip amount, grand total, and how much each person should contribute when in a group. No more guess work.
 
