@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string-array name="undetected_libraries">
+        <item>material-dialogs</item>
+        <item>systembartint</item>
+        <item>LeakCanary</item>
+        <item>Dagger2</item>
+    </string-array>
+
+</resources>

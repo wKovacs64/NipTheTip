@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/settings_title_general">
+
+        <EditTextPreference
+            android:defaultValue="10"
+            android:key="tip_percent"
+            android:inputType="number"
+            android:title="@string/settings_title_tip_percent"
+            android:summary="10" />
+
+        <EditTextPreference
+            android:defaultValue="1"
+            android:key="number_of_people"
+            android:inputType="number"
+            android:title="@string/settings_title_number_of_people"
+            android:summary="1" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

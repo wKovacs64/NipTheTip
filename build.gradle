@@ -1,0 +1,24 @@
+apply plugin: 'com.github.ben-manes.versions'
+
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'https://clojars.org/repo/' }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.4.0-beta1'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.7'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven { url 'https://clojars.org/repo/' }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- Base Application Theme -->
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- colorPrimary is used for the default action bar background -->
+        <item name="colorPrimary">@color/primary</item>
+        <!-- colorPrimaryDark is used for the status bar -->
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <!-- colorAccent is used as the default value for colorControlActivated which is used to tint widgets -->
+        <item name="colorAccent">@color/accent</item>
+        <!-- textColorPrimary is used for the app bar text -->
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <!-- Buttons -->
+        <!--<item name="colorButtonNormal">@color/btn_custom</item>-->
+        <!-- Text -->
+        <!--<item name="android:textColor">@color/text_normal</item>-->
+        <!-- Material-Dialogs -->
+        <item name="md_dark_theme">false</item>
+    </style>
+
+    <!-- Application Theme -->
+    <style name="AppTheme" parent="BaseTheme">
+        <!-- Require explicit window backgrounds to avoid overdraw -->
+        <item name="android:windowBackground">@color/background</item>
+    </style>
+
+    <!-- Settings Theme -->
+    <style name="SettingsTheme" parent="BaseTheme">
+        <!-- textColorPrimary is used for preference title text -->
+        <item name="android:textColorPrimary">@color/text_normal</item>
+    </style>
+
+</resources>

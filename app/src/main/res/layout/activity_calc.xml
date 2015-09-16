@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".ui.activity.CalcActivity">
+
+    <!-- Prevent first input from automatically getting focus -->
+    <requestFocus />
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:scrollbarStyle="outsideOverlay">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Bill Amount -->
+            <TextView
+                android:id="@+id/text_bill_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/edit_bill_amount"
+                android:labelFor="@+id/edit_bill_amount"
+                android:text="@string/label_bill_amount"
+                style="@style/Label"
+                tools:ignore="RelativeOverlap" />
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:id="@+id/image_bill_amount_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/edit_bill_amount"
+                android:layout_alignTop="@+id/edit_bill_amount"
+                android:layout_alignBottom="@+id/edit_bill_amount"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:iiv_size="@dimen/image_button_size"
+                app:iiv_padding="@dimen/image_button_padding"
+                app:iiv_color="@color/accent"
+                app:iiv_icon="oct_chevron_down" />
+
+            <EditText
+                android:id="@+id/edit_bill_amount"
+                android:layout_width="@dimen/input_width"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/image_bill_amount_up"
+                android:layout_marginStart="@dimen/interior_horizontal_spacing"
+                android:layout_marginEnd="@dimen/interior_horizontal_spacing"
+                android:gravity="end"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:clickable="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:text="@string/value_zero"
+                style="@style/Input" />
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:id="@+id/image_bill_amount_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@id/edit_bill_amount"
+                android:layout_alignBottom="@id/edit_bill_amount"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:iiv_size="@dimen/image_button_size"
+                app:iiv_padding="@dimen/image_button_padding"
+                app:iiv_color="@color/accent"
+                app:iiv_icon="oct_chevron_up" />
+
+            <!-- Tip Percent (%) -->
+            <TextView
+                android:id="@+id/text_tip_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_bill_amount"
+                android:layout_alignBaseline="@+id/edit_tip_percent"
+                android:labelFor="@+id/edit_tip_percent"
+                android:text="@string/label_tip_percent"
+                style="@style/Label" />
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:id="@+id/image_tip_percent_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/edit_tip_percent"
+                android:layout_alignTop="@+id/edit_tip_percent"
+                android:layout_alignBottom="@+id/edit_tip_percent"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:iiv_size="@dimen/image_button_size"
+                app:iiv_padding="@dimen/image_button_padding"
+                app:iiv_color="@color/accent"
+                app:iiv_icon="oct_chevron_down" />
+
+            <EditText
+                android:id="@+id/edit_tip_percent"
+                android:layout_width="@dimen/input_width"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edit_bill_amount"
+                android:layout_toStartOf="@+id/image_tip_percent_up"
+                android:layout_marginTop="@dimen/interior_vertical_spacing"
+                android:layout_marginStart="@dimen/interior_horizontal_spacing"
+                android:layout_marginEnd="@dimen/interior_horizontal_spacing"
+                android:gravity="end"
+                android:inputType="number"
+                android:maxLines="1"
+                android:clickable="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:text="@string/value_zero"
+                style="@style/Input" />
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:id="@+id/image_tip_percent_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@id/edit_tip_percent"
+                android:layout_alignBottom="@id/edit_tip_percent"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:iiv_size="@dimen/image_button_size"
+                app:iiv_padding="@dimen/image_button_padding"
+                app:iiv_color="@color/accent"
+                app:iiv_icon="oct_chevron_up" />
+
+            <!-- Tip Amount -->
+            <TextView
+                android:id="@+id/text_tip_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_tip_percent"
+                android:layout_alignBaseline="@+id/edit_tip_amount"
+                android:labelFor="@+id/edit_tip_amount"
+                android:text="@string/label_tip_amount"
+                style="@style/Label" />
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:id="@+id/image_tip_amount_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/edit_tip_amount"
+                android:layout_alignTop="@+id/edit_tip_amount"
+                android:layout_alignBottom="@+id/edit_tip_amount"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:iiv_size="@dimen/image_button_size"
+                app:iiv_padding="@dimen/image_button_padding"
+                app:iiv_color="@color/accent"
+                app:iiv_icon="oct_chevron_down" />
+
+            <EditText
+                android:id="@+id/edit_tip_amount"
+                android:layout_width="@dimen/input_width"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edit_tip_percent"
+                android:layout_toStartOf="@+id/image_tip_amount_up"
+                android:layout_marginTop="@dimen/interior_vertical_spacing"
+                android:layout_marginStart="@dimen/interior_horizontal_spacing"
+                android:layout_marginEnd="@dimen/interior_horizontal_spacing"
+                android:gravity="end"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:clickable="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:text="@string/value_zero"
+                style="@style/Input" />
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:id="@+id/image_tip_amount_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@id/edit_tip_amount"
+                android:layout_alignBottom="@id/edit_tip_amount"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:iiv_size="@dimen/image_button_size"
+                app:iiv_padding="@dimen/image_button_padding"
+                app:iiv_color="@color/accent"
+                app:iiv_icon="oct_chevron_up" />
+
+            <View
+                android:id="@+id/divider1"
+                android:layout_marginTop="@dimen/interior_vertical_spacing_large"
+                android:layout_marginBottom="@dimen/interior_vertical_spacing_large"
+                android:layout_below="@id/edit_tip_amount"
+                style="@style/HorizontalDivider" />
+
+            <!-- Total Amount -->
+            <TextView
+                android:id="@+id/text_total_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/divider1"
+                android:layout_alignBaseline="@+id/edit_total_amount"
+                android:labelFor="@+id/edit_total_amount"
+                android:text="@string/label_total_amount"
+                style="@style/LabelBold" />
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:id="@+id/image_total_amount_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/edit_total_amount"
+                android:layout_alignTop="@+id/edit_total_amount"
+                android:layout_alignBottom="@+id/edit_total_amount"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:iiv_size="@dimen/image_button_size"
+                app:iiv_padding="@dimen/image_button_padding"
+                app:iiv_color="@color/accent"
+                app:iiv_icon="oct_chevron_down" />
+
+            <EditText
+                android:id="@+id/edit_total_amount"
+                android:layout_width="@dimen/input_width"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/divider1"
+                android:layout_toStartOf="@+id/image_total_amount_up"
+                android:layout_marginStart="@dimen/interior_horizontal_spacing"
+                android:layout_marginEnd="@dimen/interior_horizontal_spacing"
+                android:gravity="end"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:text="@string/value_zero"
+                android:clickable="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                style="@style/Input" />
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:id="@+id/image_total_amount_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@id/edit_total_amount"
+                android:layout_alignBottom="@id/edit_total_amount"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:iiv_size="@dimen/image_button_size"
+                app:iiv_padding="@dimen/image_button_padding"
+                app:iiv_color="@color/accent"
+                app:iiv_icon="oct_chevron_up" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_marginTop="@dimen/interior_vertical_spacing_large"
+                android:layout_marginBottom="@dimen/interior_vertical_spacing_large"
+                android:layout_below="@id/edit_total_amount"
+                style="@style/HorizontalDivider" />
+
+            <!-- Number of People -->
+            <TextView
+                android:id="@+id/text_number_of_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/divider2"
+                android:layout_alignBaseline="@+id/edit_number_of_people"
+                android:labelFor="@+id/edit_number_of_people"
+                android:text="@string/label_number_of_people"
+                style="@style/Label" />
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:id="@+id/image_number_of_people_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/edit_number_of_people"
+                android:layout_alignTop="@+id/edit_number_of_people"
+                android:layout_alignBottom="@+id/edit_number_of_people"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:iiv_size="@dimen/image_button_size"
+                app:iiv_padding="@dimen/image_button_padding"
+                app:iiv_color="@color/accent"
+                app:iiv_icon="oct_chevron_down" />
+
+            <EditText
+                android:id="@+id/edit_number_of_people"
+                android:layout_width="@dimen/input_width"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/divider2"
+                android:layout_toStartOf="@+id/image_number_of_people_up"
+                android:layout_marginStart="@dimen/interior_horizontal_spacing"
+                android:layout_marginEnd="@dimen/interior_horizontal_spacing"
+                android:gravity="end"
+                android:inputType="number"
+                android:maxLines="1"
+                android:clickable="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                style="@style/Input"
+                tools:text="1" />
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:id="@+id/image_number_of_people_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@id/edit_number_of_people"
+                android:layout_alignBottom="@id/edit_number_of_people"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:iiv_size="@dimen/image_button_size"
+                app:iiv_padding="@dimen/image_button_padding"
+                app:iiv_color="@color/accent"
+                app:iiv_icon="oct_chevron_up" />
+
+            <!-- Each Person Pays -->
+            <TextView
+                android:id="@+id/text_each_person_pays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_number_of_people"
+                android:layout_alignBaseline="@+id/edit_each_person_pays"
+                android:labelFor="@+id/edit_each_person_pays"
+                android:text="@string/label_each_person_pays"
+                style="@style/Label" />
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:id="@+id/image_each_person_pays_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/edit_each_person_pays"
+                android:layout_alignTop="@+id/edit_each_person_pays"
+                android:layout_alignBottom="@+id/edit_each_person_pays"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:iiv_size="@dimen/image_button_size"
+                app:iiv_padding="@dimen/image_button_padding"
+                app:iiv_color="@color/accent"
+                app:iiv_icon="oct_chevron_down" />
+
+            <EditText
+                android:id="@+id/edit_each_person_pays"
+                android:layout_width="@dimen/input_width"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edit_number_of_people"
+                android:layout_toStartOf="@+id/image_each_person_pays_up"
+                android:layout_marginTop="@dimen/interior_vertical_spacing"
+                android:layout_marginStart="@dimen/interior_horizontal_spacing"
+                android:layout_marginEnd="@dimen/interior_horizontal_spacing"
+                android:gravity="end"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:text="@string/value_zero"
+                android:clickable="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                style="@style/Input" />
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:id="@+id/image_each_person_pays_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@id/edit_each_person_pays"
+                android:layout_alignBottom="@id/edit_each_person_pays"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:iiv_size="@dimen/image_button_size"
+                app:iiv_padding="@dimen/image_button_padding"
+                app:iiv_color="@color/accent"
+                app:iiv_icon="oct_chevron_up" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</LinearLayout>

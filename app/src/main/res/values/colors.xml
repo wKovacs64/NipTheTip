@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- Palette: https://www.materialpalette.com/blue-grey/blue -->
+
+    <!-- Blue Grey -->
+    <color name="primary">#607D8B</color>
+    <!-- Dark Blue Grey -->
+    <color name="primary_dark">#455A64</color>
+    <!-- Blue -->
+    <color name="accent">#448AFF</color>
+
+    <!-- 87% White, for normal text against @color/primary -->
+    <color name="text_primary">#D9FFFFFF</color>
+    <!-- 87% Light Blue Grey, for secondary text against @color/primary -->
+    <!--<color name="text_primary_secondary">#D9CFD8DC</color>-->
+    <!-- 87% Black-ish, for normal text against @color/background -->
+    <color name="text_normal">#D9212121</color>
+    <!-- 87% Grey-ish, for secondary text against @color/background -->
+    <color name="text_secondary">#D9727272</color>
+
+    <!-- Default Background -->
+    <color name="background">#FFFFFF</color>
+    <!-- Divider, for use against white-ish background -->
+    <color name="divider">#B6B6B6</color>
+
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:locale="en">
+
+    <!-- App -->
+    <string name="app_name" translatable="false">Nip the Tip (Dev)</string>
+
+</resources>

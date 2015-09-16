@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:locale="en">
+
+    <!-- App -->
+    <string name="app_name" translatable="false">Nip the Tip</string>
+    <string name="app_description"><![CDATA[<b>Nip the Tip</b> is a simple tip calculator and bill divider for Android™. Figuring out how much you should add to the total bill for a tip, or how much everyone should pay when ordering as a group can be difficult. Nip that process in the bud and let this app do the math for you! It calculates the tip percentage, tip amount, grand total, and how much each person should contribute when in a group. No more guess work.<p><b>Nip the Tip</b> is completely free and open source, with no ads or in-app purchases. This means you can use it with confidence and don\'t need to grant it any ridiculous permissions or worry about your personal data being harvested.<p>Open source libraries used:]]></string>
+    <!-- Titles -->
+    <string name="title_activity_about">About</string>
+    <!-- InputDialog -->
+    <string name="action_ok">OK</string>
+    <string name="hint_input">Enter a value…</string>
+    <string name="prefill_input" />
+    <!-- Labels -->
+    <string name="label_bill_amount">Bill Amount</string>
+    <string name="label_tip_percent">Tip Percent (%)</string>
+    <string name="label_tip_amount">Tip Amount</string>
+    <string name="label_total_amount">Total Amount</string>
+    <string name="label_number_of_people">Number of People</string>
+    <string name="label_each_person_pays">Each Person Pays</string>
+    <!-- Values -->
+    <string name="value_zero">0.00</string>
+    <!-- Snackbar Messages -->
+    <string name="snack_invalid">Value was invalid, try again.</string>
+    <string name="snack_no_people">No people? Try again.</string>
+    <string name="snack_tip_percent_invalid">Tip percent must be between 0 and 100.</string>
+    <string name="snack_number_of_people_invalid">Number of people must be at least 1.</string>
+    <!-- Menu -->
+    <string name="menu_settings">Settings</string>
+    <string name="menu_about">About</string>
+    <!-- Settings -->
+    <string name="settings_title_general">General</string>
+    <string name="settings_title_tip_percent">Default tip percentage</string>
+    <string name="settings_title_number_of_people">Default number of people</string>
+
+</resources>

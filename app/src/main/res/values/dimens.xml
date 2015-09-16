@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="appbar_elevation">4dp</dimen>
+
+    <dimen name="interior_horizontal_spacing">4dp</dimen>
+    <dimen name="interior_vertical_spacing">20dp</dimen>
+    <dimen name="interior_vertical_spacing_large">32dp</dimen>
+
+    <dimen name="image_button_size">32dp</dimen>
+    <dimen name="image_button_padding">6dp</dimen>
+
+    <dimen name="input_width">90dp</dimen>
+
+</resources>
