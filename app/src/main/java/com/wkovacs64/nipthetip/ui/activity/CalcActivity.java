@@ -311,7 +311,7 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
 
     @OnClick(R.id.image_bill_amount_down)
     void onBillAmountDown() {
-        if (mBillAmount.compareTo(BigDecimal.ONE) > 0) {
+        if (mBillAmount.compareTo(BigDecimal.ONE) >= 0) {
             if (mBillAmount.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
                 mBillAmount = mBillAmount.subtract(BigDecimal.ONE);
             } else {
