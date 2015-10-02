@@ -75,8 +75,8 @@ public final class AboutActivity extends AppCompatActivity {
     }
 
     private void initFragment() {
-        // Create the Support fragment
-        LibsFragment supportFragment = new LibsBuilder()
+        // Create the About fragment
+        LibsFragment aboutFragment = new LibsBuilder()
                 .withFields(R.string.class.getFields())
                 .withAboutIconShown(true)
                 .withAboutVersionShownName(true)
@@ -85,10 +85,10 @@ public final class AboutActivity extends AppCompatActivity {
                 .fragment();
 
         // Put it in the layout
-        if (supportFragment != null) {
+        if (aboutFragment != null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, supportFragment)
+                    .replace(R.id.fragment_container, aboutFragment)
                     .commit();
         }
     }
