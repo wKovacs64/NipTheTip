@@ -3,6 +3,7 @@
 ## Version 1.0.2 *(in progress)*
 
 * Allow the Bill Amount down arrow to drop the bill to 0.
+* Upgraded various libraries.
 
 ## Version 1.0.1 *(2015-09-16)*
 
