@@ -6,7 +6,7 @@ buildscript {
         maven { url 'https://clojars.org/repo/' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.4.0-beta1'
+        classpath 'com.android.tools.build:gradle:1.4.0-beta4'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.7'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
     }
