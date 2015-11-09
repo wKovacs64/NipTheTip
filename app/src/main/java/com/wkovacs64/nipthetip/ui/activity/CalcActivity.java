@@ -225,7 +225,7 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
 
     @Override
     public void onBillAmountInput(String input) {
-        Timber.d("Bill Amount user input: " + input);
+        Timber.d("Bill Amount user input: %s", input);
         mBillAmount = new BigDecimal(input);
         mBillAmountField.setText(FORMATTER.format(mBillAmount));
     }
@@ -237,7 +237,7 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
 
     @Override
     public void onTipPercentInput(String input) {
-        Timber.d("Tip Percent user input: " + input);
+        Timber.d("Tip Percent user input: %s", input);
         mTipPercent = new BigDecimal(input);
         mTipPercentField.setText(INT_FORMATTER.format(mTipPercent));
     }
@@ -249,7 +249,7 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
 
     @Override
     public void onTipAmountInput(String input) {
-        Timber.d("Tip Amount user input: " + input);
+        Timber.d("Tip Amount user input: %s", input);
         mTipAmount = new BigDecimal(input);
         mTipAmountField.setText(FORMATTER.format(mTipAmount));
     }
@@ -261,7 +261,7 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
 
     @Override
     public void onTotalAmountInput(String input) {
-        Timber.d("Total Amount user input: " + input);
+        Timber.d("Total Amount user input: %s", input);
         BigDecimal proposedValue = new BigDecimal(input);
 
         if (proposedValue.compareTo(mBillAmount) >= 0) {
@@ -279,7 +279,7 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
 
     @Override
     public void onNumberOfPeopleInput(String input) {
-        Timber.d("Number Of People user input: " + input);
+        Timber.d("Number Of People user input: %s", input);
         BigDecimal proposedValue = new BigDecimal(input);
 
         if (proposedValue.compareTo(BigDecimal.ZERO) > 0) {
@@ -297,7 +297,7 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
 
     @Override
     public void onEachPersonPaysInput(String input) {
-        Timber.d("Each Person Pays user input: " + input);
+        Timber.d("Each Person Pays user input: %s", input);
         BigDecimal proposedValue = new BigDecimal(input);
         BigDecimal lowerLimit = mBillAmount.divide(mNumberOfPeople, ROUNDING_MODE);
 
@@ -630,7 +630,7 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
     }
 
     private void onBillAmountChange(String billAmount) {
-        Timber.d("New mBillAmountField: " + billAmount);
+        Timber.d("New mBillAmountField: %s", billAmount);
         mBillAmount = new BigDecimal(billAmount);
         // Tip Amount
         mTipAmount = mTipPercent.divide(ONE_HUNDRED, DECIMALS_PCT, ROUNDING_MODE);
@@ -645,7 +645,7 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
     }
 
     private void onTipPercentChange(String tipPercent) {
-        Timber.d("New mTipPercentField: " + tipPercent);
+        Timber.d("New mTipPercentField: %s", tipPercent);
         mTipPercent = new BigDecimal(tipPercent);
         // Tip Amount
         mTipAmount = mTipPercent.divide(ONE_HUNDRED, DECIMALS_PCT, ROUNDING_MODE);
@@ -660,7 +660,7 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
     }
 
     private void onTipAmountChange(String tipAmount) {
-        Timber.d("New mTipAmountField: " + tipAmount);
+        Timber.d("New mTipAmountField: %s", tipAmount);
         mTipAmount = new BigDecimal(tipAmount);
         // Tip Percent
         if (mBillAmount.compareTo(BigDecimal.ZERO) != 0) {
@@ -677,7 +677,7 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
     }
 
     private void onTotalAmountChange(String totalAmount) {
-        Timber.d("New mTotalAmountField: " + totalAmount);
+        Timber.d("New mTotalAmountField: %s", totalAmount);
         mTotalAmount = new BigDecimal(totalAmount);
         // Tip Amount
         mTipAmount = mTotalAmount.subtract(mBillAmount);
@@ -694,7 +694,7 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
     }
 
     private void onNumberOfPeopleChange(String numberOfPeople) {
-        Timber.d("New mNumberOfPeopleField: " + numberOfPeople);
+        Timber.d("New mNumberOfPeopleField: %s", numberOfPeople);
         mNumberOfPeople = new BigDecimal(numberOfPeople);
         // Each Person Pays
         mEachPersonPays = mTotalAmount.divide(mNumberOfPeople, ROUNDING_MODE);
@@ -704,7 +704,7 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
     }
 
     private void onEachPersonPaysChange(String eachPersonPays) {
-        Timber.d("New mEachPersonPaysField: " + eachPersonPays);
+        Timber.d("New mEachPersonPaysField: %s", eachPersonPays);
         mEachPersonPays = new BigDecimal(eachPersonPays);
         // Total Amount
         mTotalAmount = mEachPersonPays.multiply(mNumberOfPeople);

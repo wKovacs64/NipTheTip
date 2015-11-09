@@ -160,8 +160,7 @@ public final class InputDialog extends DialogFragment {
         try {
             mCallback = (Callback) activity;
         } catch (ClassCastException e) {
-            Timber.e(e, activity.getClass().getSimpleName() + " must implement " + TAG
-                    + ".Callback!");
+            Timber.e(e, "%s must implement %s.Callback!", activity.getClass().getSimpleName(), TAG);
         }
     }
 
