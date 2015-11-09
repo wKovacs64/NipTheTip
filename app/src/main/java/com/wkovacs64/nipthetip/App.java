@@ -32,6 +32,7 @@ import android.os.StrictMode;
 import com.mikepenz.iconics.Iconics;
 import com.mikepenz.octicons_typeface_library.Octicons;
 import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.wkovacs64.nipthetip.injection.AppComponent;
 import com.wkovacs64.nipthetip.injection.ApplicationModule;
 import com.wkovacs64.nipthetip.injection.DaggerAppComponent;
@@ -50,6 +51,7 @@ public final class App extends Application {
     public static final String KEY_PREF_NUM_PEOPLE = "number_of_people";
 
     private static AppComponent sAppComponent;
+    private static RefWatcher sRefWatcher;
 
     @Override
     public void onCreate() {
@@ -77,9 +79,18 @@ public final class App extends Application {
         return sAppComponent;
     }
 
+    /**
+     * Retrieves the static RefWatcher instance for detecting leaks.
+     *
+     * @return the current RefWatcher
+     */
+    public static RefWatcher refWatcher() {
+        return sRefWatcher;
+    }
+
     private void initializeDebugTools() {
+        sRefWatcher = LeakCanary.install(this);
         if (BuildConfig.DEBUG) {
-            LeakCanary.install(this);
             enabledStrictMode();
         }
     }

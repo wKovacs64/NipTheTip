@@ -126,4 +126,10 @@ public final class SettingsFragment extends PreferenceFragment
                 break;
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        App.refWatcher().watch(this);
+    }
 }
