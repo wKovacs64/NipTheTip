@@ -31,7 +31,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.mikepenz.aboutlibraries.LibsBuilder;
-import com.mikepenz.aboutlibraries.ui.LibsFragment;
+import com.mikepenz.aboutlibraries.ui.LibsSupportFragment;
 import com.wkovacs64.nipthetip.R;
 
 import butterknife.Bind;
@@ -76,13 +76,14 @@ public final class AboutActivity extends AppCompatActivity {
 
     private void initFragment() {
         // Create the About fragment
-        LibsFragment aboutFragment = new LibsBuilder()
+        LibsSupportFragment aboutFragment = new LibsBuilder()
                 .withFields(R.string.class.getFields())
                 .withAboutIconShown(true)
                 .withAboutVersionShownName(true)
                 .withAboutDescription(getString(R.string.app_description))
                 .withLibraries(getResources().getStringArray(R.array.undetected_libraries))
-                .fragment();
+                .withSlideInAnimation(true)
+                .supportFragment();
 
         // Put it in the layout
         if (aboutFragment != null) {
