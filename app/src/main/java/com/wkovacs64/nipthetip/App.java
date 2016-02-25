@@ -29,7 +29,9 @@ import android.app.Application;
 import android.os.Build;
 import android.os.StrictMode;
 
+import com.mikepenz.aboutlibraries.LibsConfiguration;
 import com.mikepenz.iconics.Iconics;
+import com.mikepenz.itemanimators.SlideUpAlphaAnimator;
 import com.mikepenz.octicons_typeface_library.Octicons;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
@@ -68,6 +70,9 @@ public final class App extends Application {
 
         // Initialize Android-Iconics
         initializeIconics();
+
+        // Initialize AboutLibraries
+        initializeAboutLibraries();
     }
 
     /**
@@ -122,5 +127,9 @@ public final class App extends Application {
         // An alternative to keeping R from ProGuard
         Iconics.init(this);
         Iconics.registerFont(new Octicons());
+    }
+
+    private void initializeAboutLibraries() {
+        LibsConfiguration.getInstance().setItemAnimator(new SlideUpAlphaAnimator());
     }
 }
