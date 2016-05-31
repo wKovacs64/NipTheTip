@@ -33,12 +33,12 @@ import android.view.MenuItem;
 import com.wkovacs64.nipthetip.R;
 import com.wkovacs64.nipthetip.ui.fragment.SettingsFragment;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public final class SettingsActivity extends AppCompatActivity {
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
     @Override

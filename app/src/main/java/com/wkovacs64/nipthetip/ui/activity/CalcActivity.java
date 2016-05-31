@@ -49,7 +49,7 @@ import java.text.NumberFormat;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import icepick.Icepick;
@@ -116,21 +116,21 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
     @State
     BigDecimal mEachPersonPays;
 
-    @Bind(R.id.view_root)
+    @BindView(R.id.view_root)
     LinearLayout mRootView;
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @Bind(R.id.edit_bill_amount)
+    @BindView(R.id.edit_bill_amount)
     EditText mBillAmountField;
-    @Bind(R.id.edit_tip_percent)
+    @BindView(R.id.edit_tip_percent)
     EditText mTipPercentField;
-    @Bind(R.id.edit_tip_amount)
+    @BindView(R.id.edit_tip_amount)
     EditText mTipAmountField;
-    @Bind(R.id.edit_total_amount)
+    @BindView(R.id.edit_total_amount)
     EditText mTotalAmountField;
-    @Bind(R.id.edit_number_of_people)
+    @BindView(R.id.edit_number_of_people)
     EditText mNumberOfPeopleField;
-    @Bind(R.id.edit_each_person_pays)
+    @BindView(R.id.edit_each_person_pays)
     EditText mEachPersonPaysField;
 
     @Inject
