@@ -26,7 +26,3 @@
 
 # Timber (may only be needed for release builds logging to a third party like Crashlytics)
 -keep public class timber.log.**
-
-# LeakCanary 1.4-SNAPSHOT
--dontwarn com.squareup.leakcanary.DisplayLeakService
--dontwarn com.squareup.haha.**
