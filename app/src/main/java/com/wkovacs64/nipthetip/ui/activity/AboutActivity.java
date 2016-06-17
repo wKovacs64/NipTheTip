@@ -82,6 +82,7 @@ public final class AboutActivity extends AppCompatActivity {
                 .withAboutVersionShownName(true)
                 .withAboutDescription(getString(R.string.app_description))
                 .withLibraries(getResources().getStringArray(R.array.undetected_libraries))
+                .withLicenseShown(true)
                 .supportFragment();
 
         // Put it in the layout
