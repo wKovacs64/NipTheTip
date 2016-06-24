@@ -45,15 +45,14 @@ import timber.log.Timber;
  * A custom Application.
  */
 public final class App extends Application {
-
     /*
      * SharedPreferences keys.
      */
     public static final String KEY_PREF_TIP_PERCENT = "tip_percent";
     public static final String KEY_PREF_NUM_PEOPLE = "number_of_people";
 
-    private static AppComponent sAppComponent;
-    private static RefWatcher sRefWatcher;
+    private static AppComponent appComponent;
+    private static RefWatcher refWatcher;
 
     @Override
     public void onCreate() {
@@ -81,7 +80,7 @@ public final class App extends Application {
      * @return the current AppComponent
      */
     public static AppComponent getAppComponent() {
-        return sAppComponent;
+        return appComponent;
     }
 
     /**
@@ -90,11 +89,11 @@ public final class App extends Application {
      * @return the current RefWatcher
      */
     public static RefWatcher refWatcher() {
-        return sRefWatcher;
+        return refWatcher;
     }
 
     private void initializeDebugTools() {
-        sRefWatcher = LeakCanary.install(this);
+        refWatcher = LeakCanary.install(this);
         if (BuildConfig.DEBUG) {
             enabledStrictMode();
         }
@@ -118,7 +117,7 @@ public final class App extends Application {
     }
 
     private void initializeInjector() {
-        sAppComponent = DaggerAppComponent.builder()
+        appComponent = DaggerAppComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
     }

@@ -44,11 +44,11 @@ import static butterknife.ButterKnife.findById;
 public final class SettingsFragment extends PreferenceFragment
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private Preference mTipPercentPref;
-    private Preference mNumberOfPeoplePref;
+    private Preference tipPercentPref;
+    private Preference numberOfPeoplePref;
 
     @Inject
-    SharedPreferences sPrefs;
+    SharedPreferences prefs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,22 +59,22 @@ public final class SettingsFragment extends PreferenceFragment
         App.getAppComponent().inject(this);
 
         // Note: ButterKnife doesn't support Preference binding (yet)
-        mTipPercentPref = findPreference(App.KEY_PREF_TIP_PERCENT);
-        mNumberOfPeoplePref = findPreference(App.KEY_PREF_NUM_PEOPLE);
+        tipPercentPref = findPreference(App.KEY_PREF_TIP_PERCENT);
+        numberOfPeoplePref = findPreference(App.KEY_PREF_NUM_PEOPLE);
         // Set the preference summary to be the current value
-        mTipPercentPref.setSummary(sPrefs.getString(App.KEY_PREF_TIP_PERCENT, null));
-        mNumberOfPeoplePref.setSummary(sPrefs.getString(App.KEY_PREF_NUM_PEOPLE, null));
+        tipPercentPref.setSummary(prefs.getString(App.KEY_PREF_TIP_PERCENT, null));
+        numberOfPeoplePref.setSummary(prefs.getString(App.KEY_PREF_NUM_PEOPLE, null));
     }
 
     @Override
     public void onStart() {
         super.onStart();
         // Listen for successful preference changes
-        sPrefs.registerOnSharedPreferenceChangeListener(this);
+        prefs.registerOnSharedPreferenceChangeListener(this);
 
         // Validate user input, discarding changes if invalid
         final Activity activity = getActivity();
-        mTipPercentPref.setOnPreferenceChangeListener(
+        tipPercentPref.setOnPreferenceChangeListener(
                 new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -88,7 +88,7 @@ public final class SettingsFragment extends PreferenceFragment
                         return valid;
                     }
                 });
-        mNumberOfPeoplePref.setOnPreferenceChangeListener(
+        numberOfPeoplePref.setOnPreferenceChangeListener(
                 new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -107,9 +107,9 @@ public final class SettingsFragment extends PreferenceFragment
     @Override
     public void onStop() {
         super.onStop();
-        sPrefs.unregisterOnSharedPreferenceChangeListener(this);
-        mTipPercentPref.setOnPreferenceChangeListener(null);
-        mNumberOfPeoplePref.setOnPreferenceChangeListener(null);
+        prefs.unregisterOnSharedPreferenceChangeListener(this);
+        tipPercentPref.setOnPreferenceChangeListener(null);
+        numberOfPeoplePref.setOnPreferenceChangeListener(null);
     }
 
     @Override
@@ -117,10 +117,10 @@ public final class SettingsFragment extends PreferenceFragment
         // Update the preference summary to reflect the new value
         switch (key) {
             case App.KEY_PREF_TIP_PERCENT:
-                mTipPercentPref.setSummary(sPrefs.getString(App.KEY_PREF_TIP_PERCENT, null));
+                tipPercentPref.setSummary(prefs.getString(App.KEY_PREF_TIP_PERCENT, null));
                 break;
             case App.KEY_PREF_NUM_PEOPLE:
-                mNumberOfPeoplePref.setSummary(sPrefs.getString(App.KEY_PREF_NUM_PEOPLE, null));
+                numberOfPeoplePref.setSummary(prefs.getString(App.KEY_PREF_NUM_PEOPLE, null));
                 break;
             default:
                 break;

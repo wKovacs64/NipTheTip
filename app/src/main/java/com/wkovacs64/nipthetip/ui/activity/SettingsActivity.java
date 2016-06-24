@@ -39,7 +39,7 @@ import butterknife.ButterKnife;
 public final class SettingsActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
-    Toolbar mToolbar;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +50,8 @@ public final class SettingsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         // Initialize the Toolbar
-        if (mToolbar != null) {
-            setSupportActionBar(mToolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             }

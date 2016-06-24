@@ -36,7 +36,6 @@ import dagger.Provides;
 
 @Module
 public final class SharedPreferencesModule {
-
     @Provides
     @Singleton
     SharedPreferences provideSharedPreferences(@ForApplication Context context) {

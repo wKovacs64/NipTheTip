@@ -46,10 +46,9 @@ import timber.log.Timber;
 public final class InputDialog extends DialogFragment {
 
     private static final String TAG = InputDialog.class.getSimpleName();
-
     private static final String KEY_FIELD = "field";
 
-    private Callback mCallback;
+    private Callback callback;
 
     /**
      * A listener object equipped to process user input from an {@link InputDialog}.
@@ -128,22 +127,22 @@ public final class InputDialog extends DialogFragment {
                                 String input = charSequence.toString();
                                 switch (field) {
                                     case CalcActivity.FIELD_BILL_AMOUNT:
-                                        mCallback.onBillAmountInput(input);
+                                        callback.onBillAmountInput(input);
                                         break;
                                     case CalcActivity.FIELD_TIP_PERCENT:
-                                        mCallback.onTipPercentInput(input);
+                                        callback.onTipPercentInput(input);
                                         break;
                                     case CalcActivity.FIELD_TIP_AMOUNT:
-                                        mCallback.onTipAmountInput(input);
+                                        callback.onTipAmountInput(input);
                                         break;
                                     case CalcActivity.FIELD_TOTAL_AMOUNT:
-                                        mCallback.onTotalAmountInput(input);
+                                        callback.onTotalAmountInput(input);
                                         break;
                                     case CalcActivity.FIELD_NUMBER_OF_PEOPLE:
-                                        mCallback.onNumberOfPeopleInput(input);
+                                        callback.onNumberOfPeopleInput(input);
                                         break;
                                     case CalcActivity.FIELD_EACH_PERSON_PAYS:
-                                        mCallback.onEachPersonPaysInput(input);
+                                        callback.onEachPersonPaysInput(input);
                                         break;
                                     default:
                                         throw new IllegalArgumentException(TAG + " instantiated"
@@ -158,7 +157,7 @@ public final class InputDialog extends DialogFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mCallback = (Callback) activity;
+            callback = (Callback) activity;
         } catch (ClassCastException e) {
             Timber.e(e, "%s must implement %s.Callback!", activity.getClass().getSimpleName(), TAG);
         }
@@ -167,7 +166,7 @@ public final class InputDialog extends DialogFragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mCallback = null;
+        callback = null;
     }
 
     // Workaround for a bug in the support library (issue 17423)

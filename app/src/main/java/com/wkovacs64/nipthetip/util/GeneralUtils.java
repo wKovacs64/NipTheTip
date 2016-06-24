@@ -39,7 +39,6 @@ import com.wkovacs64.nipthetip.R;
  * Uninstantiable general-purpose utility class.
  */
 public final class GeneralUtils {
-
     /**
      * Suppress default constructor to prevent instantiation.
      */
