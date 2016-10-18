@@ -5,7 +5,7 @@ def gitHash = "git rev-parse --short HEAD".execute().text.trim()
 
 android {
     compileSdkVersion 24
-    buildToolsVersion '24.0.0'
+    buildToolsVersion '24.0.2'
 
     defaultConfig {
         minSdkVersion 17
