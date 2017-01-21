@@ -5,7 +5,7 @@ def gitHash = "git rev-parse --short HEAD".execute().text.trim()
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '25.0.2'
 
     defaultConfig {
         minSdkVersion 17
@@ -51,22 +51,24 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:design:25.0.1'
-    compile 'com.mikepenz:aboutlibraries:5.5.7'
-    compile 'com.mikepenz:itemanimators:0.2.1@aar'
-    compile 'com.mikepenz:iconics-core:2.5.7@aar'
+    compile 'com.android.support:design:25.1.0'
+    compile('com.mikepenz:aboutlibraries:5.8.1') {
+        exclude module: 'cardview-v7'
+    }
+    compile 'com.mikepenz:itemanimators:0.2.4@aar'
+    compile 'com.mikepenz:iconics-core:2.8.1@aar'
     compile 'com.mikepenz:octicons-typeface:3.2.0.1@aar'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.4'
-    compile('com.afollestad.material-dialogs:core:0.8.5.9@aar') {
+    compile('com.afollestad.material-dialogs:core:0.9.2.3@aar') {
         transitive = true
     }
-    compile 'com.jakewharton:butterknife:8.1.0'
-    apt 'com.jakewharton:butterknife-compiler:8.1.0'
-    compile 'com.jakewharton.timber:timber:4.1.2'
+    compile 'com.jakewharton:butterknife:8.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'com.jakewharton.timber:timber:4.5.1'
     compile 'frankiesardo:icepick:3.2.0'
     apt 'frankiesardo:icepick-processor:3.2.0'
-    compile 'com.google.dagger:dagger:2.5'
-    apt 'com.google.dagger:dagger-compiler:2.5'
+    compile 'com.google.dagger:dagger:2.8'
+    apt 'com.google.dagger:dagger-compiler:2.8'
     provided 'org.glassfish:javax.annotation:10.0-b28'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
