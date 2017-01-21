@@ -26,7 +26,6 @@
 package com.wkovacs64.nipthetip;
 
 import android.app.Application;
-import android.os.Build;
 import android.os.StrictMode;
 
 import com.mikepenz.aboutlibraries.LibsConfiguration;
@@ -100,13 +99,11 @@ public final class App extends Application {
     }
 
     private void enabledStrictMode() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                    .detectAll()
-                    .penaltyLog()
-                    .penaltyDialog()
-                    .build());
-        }
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectAll()
+                .penaltyLog()
+                .penaltyDialog()
+                .build());
     }
 
     private void initializeLogging() {
