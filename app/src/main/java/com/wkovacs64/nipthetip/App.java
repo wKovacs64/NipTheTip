@@ -26,12 +26,14 @@
 package com.wkovacs64.nipthetip;
 
 import android.app.Application;
-import android.os.Build;
 import android.os.StrictMode;
 
+import com.mikepenz.aboutlibraries.LibsConfiguration;
 import com.mikepenz.iconics.Iconics;
+import com.mikepenz.itemanimators.SlideUpAlphaAnimator;
 import com.mikepenz.octicons_typeface_library.Octicons;
 import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.wkovacs64.nipthetip.injection.AppComponent;
 import com.wkovacs64.nipthetip.injection.ApplicationModule;
 import com.wkovacs64.nipthetip.injection.DaggerAppComponent;
@@ -42,14 +44,14 @@ import timber.log.Timber;
  * A custom Application.
  */
 public final class App extends Application {
-
     /*
      * SharedPreferences keys.
      */
     public static final String KEY_PREF_TIP_PERCENT = "tip_percent";
     public static final String KEY_PREF_NUM_PEOPLE = "number_of_people";
 
-    private static AppComponent sAppComponent;
+    private static AppComponent appComponent;
+    private static RefWatcher refWatcher;
 
     @Override
     public void onCreate() {
@@ -66,6 +68,9 @@ public final class App extends Application {
 
         // Initialize Android-Iconics
         initializeIconics();
+
+        // Initialize AboutLibraries
+        initializeAboutLibraries();
     }
 
     /**
@@ -74,24 +79,31 @@ public final class App extends Application {
      * @return the current AppComponent
      */
     public static AppComponent getAppComponent() {
-        return sAppComponent;
+        return appComponent;
+    }
+
+    /**
+     * Retrieves the static RefWatcher instance for detecting leaks.
+     *
+     * @return the current RefWatcher
+     */
+    public static RefWatcher refWatcher() {
+        return refWatcher;
     }
 
     private void initializeDebugTools() {
+        refWatcher = LeakCanary.install(this);
         if (BuildConfig.DEBUG) {
-            LeakCanary.install(this);
             enabledStrictMode();
         }
     }
 
     private void enabledStrictMode() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                    .detectAll()
-                    .penaltyLog()
-                    .penaltyDialog()
-                    .build());
-        }
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectAll()
+                .penaltyLog()
+                .penaltyDialog()
+                .build());
     }
 
     private void initializeLogging() {
@@ -102,7 +114,7 @@ public final class App extends Application {
     }
 
     private void initializeInjector() {
-        sAppComponent = DaggerAppComponent.builder()
+        appComponent = DaggerAppComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
     }
@@ -111,5 +123,9 @@ public final class App extends Application {
         // An alternative to keeping R from ProGuard
         Iconics.init(this);
         Iconics.registerFont(new Octicons());
+    }
+
+    private void initializeAboutLibraries() {
+        LibsConfiguration.getInstance().setItemAnimator(new SlideUpAlphaAnimator());
     }
 }

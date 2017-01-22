@@ -49,7 +49,7 @@ import java.text.NumberFormat;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import icepick.Icepick;
@@ -62,7 +62,6 @@ import static com.wkovacs64.nipthetip.util.GeneralUtils.tintStatusBarOnKitKat;
  * The splitter/calculator view.
  */
 public final class CalcActivity extends AppCompatActivity implements InputDialog.Callback {
-
     /*
      * Identifiers to pass to InputDialog so it knows which callback method to call with the result
      */
@@ -96,45 +95,45 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
     /*
      * TextWatchers
      */
-    private TextWatcher mBillAmountWatcher;
-    private TextWatcher mTipPercentWatcher;
-    private TextWatcher mTipAmountWatcher;
-    private TextWatcher mTotalAmountWatcher;
-    private TextWatcher mNumberOfPeopleWatcher;
-    private TextWatcher mEachPersonPaysWatcher;
+    private TextWatcher billAmountWatcher;
+    private TextWatcher tipPercentWatcher;
+    private TextWatcher tipAmountWatcher;
+    private TextWatcher totalAmountWatcher;
+    private TextWatcher numberOfPeopleWatcher;
+    private TextWatcher eachPersonPaysWatcher;
 
     @State
-    BigDecimal mBillAmount;
+    BigDecimal billAmount;
     @State
-    BigDecimal mTipPercent;
+    BigDecimal tipPercent;
     @State
-    BigDecimal mTipAmount;
+    BigDecimal tipAmount;
     @State
-    BigDecimal mTotalAmount;
+    BigDecimal totalAmount;
     @State
-    BigDecimal mNumberOfPeople;
+    BigDecimal numberOfPeople;
     @State
-    BigDecimal mEachPersonPays;
+    BigDecimal eachPersonPays;
 
-    @Bind(R.id.view_root)
-    LinearLayout mRootView;
-    @Bind(R.id.toolbar)
-    Toolbar mToolbar;
-    @Bind(R.id.edit_bill_amount)
-    EditText mBillAmountField;
-    @Bind(R.id.edit_tip_percent)
-    EditText mTipPercentField;
-    @Bind(R.id.edit_tip_amount)
-    EditText mTipAmountField;
-    @Bind(R.id.edit_total_amount)
-    EditText mTotalAmountField;
-    @Bind(R.id.edit_number_of_people)
-    EditText mNumberOfPeopleField;
-    @Bind(R.id.edit_each_person_pays)
-    EditText mEachPersonPaysField;
+    @BindView(R.id.view_root)
+    LinearLayout rootView;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.edit_bill_amount)
+    EditText billAmountField;
+    @BindView(R.id.edit_tip_percent)
+    EditText tipPercentField;
+    @BindView(R.id.edit_tip_amount)
+    EditText tipAmountField;
+    @BindView(R.id.edit_total_amount)
+    EditText totalAmountField;
+    @BindView(R.id.edit_number_of_people)
+    EditText numberOfPeopleField;
+    @BindView(R.id.edit_each_person_pays)
+    EditText eachPersonPaysField;
 
     @Inject
-    SharedPreferences sPrefs;
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,8 +157,8 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
         // Initialize the Toolbar
-        if (mToolbar != null) {
-            setSupportActionBar(mToolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
         }
 
         // Initialize the TextWatcher objects
@@ -225,9 +224,9 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
 
     @Override
     public void onBillAmountInput(String input) {
-        Timber.d("Bill Amount user input: " + input);
-        mBillAmount = new BigDecimal(input);
-        mBillAmountField.setText(FORMATTER.format(mBillAmount));
+        Timber.d("Bill Amount user input: %s", input);
+        billAmount = new BigDecimal(input);
+        billAmountField.setText(FORMATTER.format(billAmount));
     }
 
     @OnClick(R.id.edit_tip_percent)
@@ -237,9 +236,9 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
 
     @Override
     public void onTipPercentInput(String input) {
-        Timber.d("Tip Percent user input: " + input);
-        mTipPercent = new BigDecimal(input);
-        mTipPercentField.setText(INT_FORMATTER.format(mTipPercent));
+        Timber.d("Tip Percent user input: %s", input);
+        tipPercent = new BigDecimal(input);
+        tipPercentField.setText(INT_FORMATTER.format(tipPercent));
     }
 
     @OnClick(R.id.edit_tip_amount)
@@ -249,9 +248,9 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
 
     @Override
     public void onTipAmountInput(String input) {
-        Timber.d("Tip Amount user input: " + input);
-        mTipAmount = new BigDecimal(input);
-        mTipAmountField.setText(FORMATTER.format(mTipAmount));
+        Timber.d("Tip Amount user input: %s", input);
+        tipAmount = new BigDecimal(input);
+        tipAmountField.setText(FORMATTER.format(tipAmount));
     }
 
     @OnClick(R.id.edit_total_amount)
@@ -261,14 +260,14 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
 
     @Override
     public void onTotalAmountInput(String input) {
-        Timber.d("Total Amount user input: " + input);
+        Timber.d("Total Amount user input: %s", input);
         BigDecimal proposedValue = new BigDecimal(input);
 
-        if (proposedValue.compareTo(mBillAmount) >= 0) {
-            mTotalAmount = proposedValue;
-            mTotalAmountField.setText(FORMATTER.format(mTotalAmount));
+        if (proposedValue.compareTo(billAmount) >= 0) {
+            totalAmount = proposedValue;
+            totalAmountField.setText(FORMATTER.format(totalAmount));
         } else {
-            Snackbar.make(mRootView, R.string.snack_invalid, Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(rootView, R.string.snack_invalid, Snackbar.LENGTH_SHORT).show();
         }
     }
 
@@ -279,14 +278,14 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
 
     @Override
     public void onNumberOfPeopleInput(String input) {
-        Timber.d("Number Of People user input: " + input);
+        Timber.d("Number Of People user input: %s", input);
         BigDecimal proposedValue = new BigDecimal(input);
 
         if (proposedValue.compareTo(BigDecimal.ZERO) > 0) {
-            mNumberOfPeople = proposedValue;
-            mNumberOfPeopleField.setText(INT_FORMATTER.format(mNumberOfPeople));
+            numberOfPeople = proposedValue;
+            numberOfPeopleField.setText(INT_FORMATTER.format(numberOfPeople));
         } else {
-            Snackbar.make(mRootView, R.string.snack_no_people, Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(rootView, R.string.snack_no_people, Snackbar.LENGTH_SHORT).show();
         }
     }
 
@@ -297,189 +296,189 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
 
     @Override
     public void onEachPersonPaysInput(String input) {
-        Timber.d("Each Person Pays user input: " + input);
+        Timber.d("Each Person Pays user input: %s", input);
         BigDecimal proposedValue = new BigDecimal(input);
-        BigDecimal lowerLimit = mBillAmount.divide(mNumberOfPeople, ROUNDING_MODE);
+        BigDecimal lowerLimit = billAmount.divide(numberOfPeople, ROUNDING_MODE);
 
         if (proposedValue.compareTo(lowerLimit) >= 0) {
-            mEachPersonPays = proposedValue;
-            mEachPersonPaysField.setText(FORMATTER.format(mEachPersonPays));
+            eachPersonPays = proposedValue;
+            eachPersonPaysField.setText(FORMATTER.format(eachPersonPays));
         } else {
-            Snackbar.make(mRootView, R.string.snack_invalid, Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(rootView, R.string.snack_invalid, Snackbar.LENGTH_SHORT).show();
         }
     }
 
     @OnClick(R.id.image_bill_amount_down)
     void onBillAmountDown() {
-        if (mBillAmount.compareTo(BigDecimal.ONE) > 0) {
-            if (mBillAmount.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
-                mBillAmount = mBillAmount.subtract(BigDecimal.ONE);
+        if (billAmount.compareTo(BigDecimal.ONE) >= 0) {
+            if (billAmount.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
+                billAmount = billAmount.subtract(BigDecimal.ONE);
             } else {
-                mBillAmount = mBillAmount.setScale(0, BigDecimal.ROUND_DOWN);
+                billAmount = billAmount.setScale(0, BigDecimal.ROUND_DOWN);
             }
-            mBillAmountField.setText(FORMATTER.format(mBillAmount));
+            billAmountField.setText(FORMATTER.format(billAmount));
         }
     }
 
     @OnClick(R.id.image_bill_amount_up)
     void onBillAmountUp() {
-        if (mBillAmount.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
-            mBillAmount = mBillAmount.add(BigDecimal.ONE);
+        if (billAmount.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
+            billAmount = billAmount.add(BigDecimal.ONE);
         } else {
-            mBillAmount = mBillAmount.setScale(0, BigDecimal.ROUND_UP);
+            billAmount = billAmount.setScale(0, BigDecimal.ROUND_UP);
         }
-        mBillAmountField.setText(FORMATTER.format(mBillAmount));
+        billAmountField.setText(FORMATTER.format(billAmount));
     }
 
     @OnClick(R.id.image_tip_percent_down)
     void onTipPercentDown() {
-        if (mTipPercent.compareTo(BigDecimal.ZERO) > 0) {
-            if (mTipPercent.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
-                mTipPercent = mTipPercent.subtract(BigDecimal.ONE);
+        if (tipPercent.compareTo(BigDecimal.ZERO) > 0) {
+            if (tipPercent.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
+                tipPercent = tipPercent.subtract(BigDecimal.ONE);
             } else {
-                mTipPercent = mTipPercent.setScale(0, BigDecimal.ROUND_DOWN);
+                tipPercent = tipPercent.setScale(0, BigDecimal.ROUND_DOWN);
             }
-            mTipPercentField.setText(INT_FORMATTER.format(mTipPercent));
+            tipPercentField.setText(INT_FORMATTER.format(tipPercent));
         }
     }
 
     @OnClick(R.id.image_tip_percent_up)
     void onTipPercentUp() {
-        if (mTipPercent.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
-            mTipPercent = mTipPercent.add(BigDecimal.ONE);
+        if (tipPercent.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
+            tipPercent = tipPercent.add(BigDecimal.ONE);
         } else {
-            mTipPercent = mTipPercent.setScale(0, BigDecimal.ROUND_UP);
+            tipPercent = tipPercent.setScale(0, BigDecimal.ROUND_UP);
         }
-        mTipPercentField.setText(INT_FORMATTER.format(mTipPercent));
+        tipPercentField.setText(INT_FORMATTER.format(tipPercent));
     }
 
     @OnClick(R.id.image_tip_amount_down)
     void onTipAmountDown() {
-        if (mTipAmount.compareTo(BigDecimal.ZERO) > 0) {
-            if (mTipAmount.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
-                mTipAmount = mTipAmount.subtract(BigDecimal.ONE);
+        if (tipAmount.compareTo(BigDecimal.ZERO) > 0) {
+            if (tipAmount.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
+                tipAmount = tipAmount.subtract(BigDecimal.ONE);
             } else {
-                mTipAmount = mTipAmount.setScale(0, BigDecimal.ROUND_DOWN);
+                tipAmount = tipAmount.setScale(0, BigDecimal.ROUND_DOWN);
             }
-            mTipAmountField.setText(FORMATTER.format(mTipAmount));
+            tipAmountField.setText(FORMATTER.format(tipAmount));
         }
     }
 
     @OnClick(R.id.image_tip_amount_up)
     void onTipAmountUp() {
-        if (mTipAmount.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
-            mTipAmount = mTipAmount.add(BigDecimal.ONE);
+        if (tipAmount.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
+            tipAmount = tipAmount.add(BigDecimal.ONE);
         } else {
-            mTipAmount = mTipAmount.setScale(0, BigDecimal.ROUND_UP);
+            tipAmount = tipAmount.setScale(0, BigDecimal.ROUND_UP);
         }
-        mTipAmountField.setText(FORMATTER.format(mTipAmount));
+        tipAmountField.setText(FORMATTER.format(tipAmount));
     }
 
     @OnClick(R.id.image_total_amount_down)
     void onTotalAmountDown() {
-        if (mTotalAmount.compareTo(mBillAmount) > 0) {
-            if (mTotalAmount.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
-                mTotalAmount = mTotalAmount.subtract(BigDecimal.ONE);
+        if (totalAmount.compareTo(billAmount) > 0) {
+            if (totalAmount.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
+                totalAmount = totalAmount.subtract(BigDecimal.ONE);
             } else {
-                mTotalAmount = mTotalAmount.setScale(0, BigDecimal.ROUND_DOWN);
+                totalAmount = totalAmount.setScale(0, BigDecimal.ROUND_DOWN);
             }
-            mTotalAmountField.setText(FORMATTER.format(mTotalAmount));
+            totalAmountField.setText(FORMATTER.format(totalAmount));
         }
     }
 
     @OnClick(R.id.image_total_amount_up)
     void onTotalAmountUp() {
-        if (mTotalAmount.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
-            mTotalAmount = mTotalAmount.add(BigDecimal.ONE);
+        if (totalAmount.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
+            totalAmount = totalAmount.add(BigDecimal.ONE);
         } else {
-            mTotalAmount = mTotalAmount.setScale(0, BigDecimal.ROUND_UP);
+            totalAmount = totalAmount.setScale(0, BigDecimal.ROUND_UP);
         }
-        mTotalAmountField.setText(FORMATTER.format(mTotalAmount));
+        totalAmountField.setText(FORMATTER.format(totalAmount));
     }
 
     @OnClick(R.id.image_number_of_people_down)
     void onNumberOfPeopleDown() {
-        if (mNumberOfPeople.compareTo(BigDecimal.ONE) > 0) {
-            if (mNumberOfPeople.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
-                mNumberOfPeople = mNumberOfPeople.subtract(BigDecimal.ONE);
+        if (numberOfPeople.compareTo(BigDecimal.ONE) > 0) {
+            if (numberOfPeople.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
+                numberOfPeople = numberOfPeople.subtract(BigDecimal.ONE);
             } else {
-                mNumberOfPeople = mNumberOfPeople.setScale(0, BigDecimal.ROUND_DOWN);
+                numberOfPeople = numberOfPeople.setScale(0, BigDecimal.ROUND_DOWN);
             }
-            mNumberOfPeopleField.setText(INT_FORMATTER.format(mNumberOfPeople));
+            numberOfPeopleField.setText(INT_FORMATTER.format(numberOfPeople));
         }
     }
 
     @OnClick(R.id.image_number_of_people_up)
     void onNumberOfPeopleUp() {
-        if (mNumberOfPeople.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
-            mNumberOfPeople = mNumberOfPeople.add(BigDecimal.ONE);
+        if (numberOfPeople.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
+            numberOfPeople = numberOfPeople.add(BigDecimal.ONE);
         } else {
-            mNumberOfPeople = mNumberOfPeople.setScale(0, BigDecimal.ROUND_UP);
+            numberOfPeople = numberOfPeople.setScale(0, BigDecimal.ROUND_UP);
         }
-        mNumberOfPeopleField.setText(INT_FORMATTER.format(mNumberOfPeople));
+        numberOfPeopleField.setText(INT_FORMATTER.format(numberOfPeople));
     }
 
     @OnClick(R.id.image_each_person_pays_down)
     void onEachPersonPaysDown() {
-        BigDecimal lowerLimit = mBillAmount.divide(mNumberOfPeople, ROUNDING_MODE);
-        if (mEachPersonPays.compareTo(lowerLimit) > 0) {
-            if (mEachPersonPays.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
-                mEachPersonPays = mEachPersonPays.subtract(BigDecimal.ONE);
+        BigDecimal lowerLimit = billAmount.divide(numberOfPeople, ROUNDING_MODE);
+        if (eachPersonPays.compareTo(lowerLimit) > 0) {
+            if (eachPersonPays.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
+                eachPersonPays = eachPersonPays.subtract(BigDecimal.ONE);
             } else {
-                mEachPersonPays = mEachPersonPays.setScale(0, BigDecimal.ROUND_DOWN);
+                eachPersonPays = eachPersonPays.setScale(0, BigDecimal.ROUND_DOWN);
             }
 
-            if (mEachPersonPays.compareTo(lowerLimit) < 0) {
-                mEachPersonPays = lowerLimit;
+            if (eachPersonPays.compareTo(lowerLimit) < 0) {
+                eachPersonPays = lowerLimit;
             }
 
-            mEachPersonPaysField.setText(FORMATTER.format(mEachPersonPays));
+            eachPersonPaysField.setText(FORMATTER.format(eachPersonPays));
         }
     }
 
     @OnClick(R.id.image_each_person_pays_up)
     void onEachPersonPaysUp() {
-        if (mEachPersonPays.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
-            mEachPersonPays = mEachPersonPays.add(BigDecimal.ONE);
+        if (eachPersonPays.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
+            eachPersonPays = eachPersonPays.add(BigDecimal.ONE);
         } else {
-            mEachPersonPays = mEachPersonPays.setScale(0, BigDecimal.ROUND_UP);
+            eachPersonPays = eachPersonPays.setScale(0, BigDecimal.ROUND_UP);
         }
-        mEachPersonPaysField.setText(FORMATTER.format(mEachPersonPays));
+        eachPersonPaysField.setText(FORMATTER.format(eachPersonPays));
     }
 
     private void initValues() {
         // Bill Amount (from layout default)
-        mBillAmount = new BigDecimal(mBillAmountField.getText().toString());
+        billAmount = new BigDecimal(billAmountField.getText().toString());
 
         // Tip Percent (from prefs or default)
-        String defaultTipPercent = sPrefs.getString(App.KEY_PREF_TIP_PERCENT, null);
+        String defaultTipPercent = prefs.getString(App.KEY_PREF_TIP_PERCENT, null);
         if (defaultTipPercent != null) {
-            mTipPercent = new BigDecimal(defaultTipPercent);
+            tipPercent = new BigDecimal(defaultTipPercent);
         } else {
-            mTipPercent = DEFAULT_TIP_PERCENT;
+            tipPercent = DEFAULT_TIP_PERCENT;
         }
 
         // Tip Amount (calculated)
-        mTipAmount = mTipPercent.divide(ONE_HUNDRED, ROUNDING_MODE);
-        mTipAmount = mTipAmount.multiply(mBillAmount);
+        tipAmount = tipPercent.divide(ONE_HUNDRED, ROUNDING_MODE);
+        tipAmount = tipAmount.multiply(billAmount);
 
         // Total Amount (calculated)
-        mTotalAmount = mBillAmount.add(mTipAmount);
+        totalAmount = billAmount.add(tipAmount);
 
         // Number of People (from prefs or default)
-        String defaultNumberOfPeople = sPrefs.getString(App.KEY_PREF_NUM_PEOPLE, null);
+        String defaultNumberOfPeople = prefs.getString(App.KEY_PREF_NUM_PEOPLE, null);
         if (defaultNumberOfPeople != null) {
-            mNumberOfPeople = new BigDecimal(defaultNumberOfPeople);
+            numberOfPeople = new BigDecimal(defaultNumberOfPeople);
         } else {
-            mNumberOfPeople = DEFAULT_NUM_PEOPLE;
+            numberOfPeople = DEFAULT_NUM_PEOPLE;
         }
 
         // Each Person Pays (calculated)
-        mEachPersonPays = mTotalAmount.divide(mNumberOfPeople, ROUNDING_MODE);
+        eachPersonPays = totalAmount.divide(numberOfPeople, ROUNDING_MODE);
     }
 
     private void initWatchers() {
-        mBillAmountWatcher = new TextWatcher() {
+        billAmountWatcher = new TextWatcher() {
             private String previous;
 
             @Override
@@ -499,7 +498,7 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
             }
         };
 
-        mTipPercentWatcher = new TextWatcher() {
+        tipPercentWatcher = new TextWatcher() {
             private String previous;
 
             @Override
@@ -519,7 +518,7 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
             }
         };
 
-        mTipAmountWatcher = new TextWatcher() {
+        tipAmountWatcher = new TextWatcher() {
             private String previous;
 
             @Override
@@ -539,7 +538,7 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
             }
         };
 
-        mTotalAmountWatcher = new TextWatcher() {
+        totalAmountWatcher = new TextWatcher() {
             private String previous;
 
             @Override
@@ -559,7 +558,7 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
             }
         };
 
-        mNumberOfPeopleWatcher = new TextWatcher() {
+        numberOfPeopleWatcher = new TextWatcher() {
             private String previous;
 
             @Override
@@ -579,7 +578,7 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
             }
         };
 
-        mEachPersonPaysWatcher = new TextWatcher() {
+        eachPersonPaysWatcher = new TextWatcher() {
             private String previous;
 
             @Override
@@ -601,123 +600,123 @@ public final class CalcActivity extends AppCompatActivity implements InputDialog
     }
 
     private void startObservations() {
-        mBillAmountField.addTextChangedListener(mBillAmountWatcher);
-        mTipPercentField.addTextChangedListener(mTipPercentWatcher);
-        mTipAmountField.addTextChangedListener(mTipAmountWatcher);
-        mTotalAmountField.addTextChangedListener(mTotalAmountWatcher);
-        mNumberOfPeopleField.addTextChangedListener(mNumberOfPeopleWatcher);
-        mEachPersonPaysField.addTextChangedListener(mEachPersonPaysWatcher);
+        billAmountField.addTextChangedListener(billAmountWatcher);
+        tipPercentField.addTextChangedListener(tipPercentWatcher);
+        tipAmountField.addTextChangedListener(tipAmountWatcher);
+        totalAmountField.addTextChangedListener(totalAmountWatcher);
+        numberOfPeopleField.addTextChangedListener(numberOfPeopleWatcher);
+        eachPersonPaysField.addTextChangedListener(eachPersonPaysWatcher);
     }
 
     private void stopObservations() {
-        mBillAmountField.removeTextChangedListener(mBillAmountWatcher);
-        mTipPercentField.removeTextChangedListener(mTipPercentWatcher);
-        mTipAmountField.removeTextChangedListener(mTipAmountWatcher);
-        mTotalAmountField.removeTextChangedListener(mTotalAmountWatcher);
-        mNumberOfPeopleField.removeTextChangedListener(mNumberOfPeopleWatcher);
-        mEachPersonPaysField.removeTextChangedListener(mEachPersonPaysWatcher);
+        billAmountField.removeTextChangedListener(billAmountWatcher);
+        tipPercentField.removeTextChangedListener(tipPercentWatcher);
+        tipAmountField.removeTextChangedListener(tipAmountWatcher);
+        totalAmountField.removeTextChangedListener(totalAmountWatcher);
+        numberOfPeopleField.removeTextChangedListener(numberOfPeopleWatcher);
+        eachPersonPaysField.removeTextChangedListener(eachPersonPaysWatcher);
     }
 
     private void updateUi() {
         stopObservations();
-        mBillAmountField.setText(FORMATTER.format(mBillAmount));
-        mTipPercentField.setText(INT_FORMATTER.format(mTipPercent));
-        mTipAmountField.setText(FORMATTER.format(mTipAmount));
-        mTotalAmountField.setText(FORMATTER.format(mTotalAmount));
-        mNumberOfPeopleField.setText(INT_FORMATTER.format(mNumberOfPeople));
-        mEachPersonPaysField.setText(FORMATTER.format(mEachPersonPays));
+        billAmountField.setText(FORMATTER.format(billAmount));
+        tipPercentField.setText(INT_FORMATTER.format(tipPercent));
+        tipAmountField.setText(FORMATTER.format(tipAmount));
+        totalAmountField.setText(FORMATTER.format(totalAmount));
+        numberOfPeopleField.setText(INT_FORMATTER.format(numberOfPeople));
+        eachPersonPaysField.setText(FORMATTER.format(eachPersonPays));
         startObservations();
     }
 
     private void onBillAmountChange(String billAmount) {
-        Timber.d("New mBillAmountField: " + billAmount);
-        mBillAmount = new BigDecimal(billAmount);
+        Timber.d("New billAmountField: %s", billAmount);
+        this.billAmount = new BigDecimal(billAmount);
         // Tip Amount
-        mTipAmount = mTipPercent.divide(ONE_HUNDRED, DECIMALS_PCT, ROUNDING_MODE);
-        mTipAmount = mTipAmount.multiply(mBillAmount);
+        tipAmount = tipPercent.divide(ONE_HUNDRED, DECIMALS_PCT, ROUNDING_MODE);
+        tipAmount = tipAmount.multiply(this.billAmount);
         // Total Amount
-        mTotalAmount = mBillAmount.add(mTipAmount);
+        totalAmount = this.billAmount.add(tipAmount);
         // Each Person Pays
-        mEachPersonPays = mTotalAmount.divide(mNumberOfPeople, ROUNDING_MODE);
+        eachPersonPays = totalAmount.divide(numberOfPeople, ROUNDING_MODE);
 
         // Populate the UI with new values
         updateUi();
     }
 
     private void onTipPercentChange(String tipPercent) {
-        Timber.d("New mTipPercentField: " + tipPercent);
-        mTipPercent = new BigDecimal(tipPercent);
+        Timber.d("New tipPercentField: %s", tipPercent);
+        this.tipPercent = new BigDecimal(tipPercent);
         // Tip Amount
-        mTipAmount = mTipPercent.divide(ONE_HUNDRED, DECIMALS_PCT, ROUNDING_MODE);
-        mTipAmount = mTipAmount.multiply(mBillAmount);
+        tipAmount = this.tipPercent.divide(ONE_HUNDRED, DECIMALS_PCT, ROUNDING_MODE);
+        tipAmount = tipAmount.multiply(billAmount);
         // Total Amount
-        mTotalAmount = mBillAmount.add(mTipAmount);
+        totalAmount = billAmount.add(tipAmount);
         // Each Person Pays
-        mEachPersonPays = mTotalAmount.divide(mNumberOfPeople, ROUNDING_MODE);
+        eachPersonPays = totalAmount.divide(numberOfPeople, ROUNDING_MODE);
 
         // Populate the UI with new values
         updateUi();
     }
 
     private void onTipAmountChange(String tipAmount) {
-        Timber.d("New mTipAmountField: " + tipAmount);
-        mTipAmount = new BigDecimal(tipAmount);
+        Timber.d("New tipAmountField: %s", tipAmount);
+        this.tipAmount = new BigDecimal(tipAmount);
         // Tip Percent
-        if (mBillAmount.compareTo(BigDecimal.ZERO) != 0) {
-            mTipPercent = mTipAmount.divide(mBillAmount, ROUNDING_MODE);
-            mTipPercent = mTipPercent.multiply(ONE_HUNDRED);
+        if (billAmount.compareTo(BigDecimal.ZERO) != 0) {
+            tipPercent = this.tipAmount.divide(billAmount, ROUNDING_MODE);
+            tipPercent = tipPercent.multiply(ONE_HUNDRED);
         }
         // Total Amount
-        mTotalAmount = mBillAmount.add(mTipAmount);
+        totalAmount = billAmount.add(this.tipAmount);
         // Each Person Pays
-        mEachPersonPays = mTotalAmount.divide(mNumberOfPeople, ROUNDING_MODE);
+        eachPersonPays = totalAmount.divide(numberOfPeople, ROUNDING_MODE);
 
         // Populate the UI with new values
         updateUi();
     }
 
     private void onTotalAmountChange(String totalAmount) {
-        Timber.d("New mTotalAmountField: " + totalAmount);
-        mTotalAmount = new BigDecimal(totalAmount);
+        Timber.d("New totalAmountField: %s", totalAmount);
+        this.totalAmount = new BigDecimal(totalAmount);
         // Tip Amount
-        mTipAmount = mTotalAmount.subtract(mBillAmount);
+        tipAmount = this.totalAmount.subtract(billAmount);
         // Tip Percent
-        if (mBillAmount.compareTo(BigDecimal.ZERO) != 0) {
-            mTipPercent = mTipAmount.divide(mBillAmount, ROUNDING_MODE);
-            mTipPercent = mTipPercent.multiply(ONE_HUNDRED);
+        if (billAmount.compareTo(BigDecimal.ZERO) != 0) {
+            tipPercent = tipAmount.divide(billAmount, ROUNDING_MODE);
+            tipPercent = tipPercent.multiply(ONE_HUNDRED);
         }
         // Each Person Pays
-        mEachPersonPays = mTotalAmount.divide(mNumberOfPeople, ROUNDING_MODE);
+        eachPersonPays = this.totalAmount.divide(numberOfPeople, ROUNDING_MODE);
 
         // Populate the UI with new values
         updateUi();
     }
 
     private void onNumberOfPeopleChange(String numberOfPeople) {
-        Timber.d("New mNumberOfPeopleField: " + numberOfPeople);
-        mNumberOfPeople = new BigDecimal(numberOfPeople);
+        Timber.d("New numberOfPeopleField: %s", numberOfPeople);
+        this.numberOfPeople = new BigDecimal(numberOfPeople);
         // Each Person Pays
-        mEachPersonPays = mTotalAmount.divide(mNumberOfPeople, ROUNDING_MODE);
+        eachPersonPays = totalAmount.divide(this.numberOfPeople, ROUNDING_MODE);
 
         // Populate the UI with new values
         updateUi();
     }
 
     private void onEachPersonPaysChange(String eachPersonPays) {
-        Timber.d("New mEachPersonPaysField: " + eachPersonPays);
-        mEachPersonPays = new BigDecimal(eachPersonPays);
+        Timber.d("New eachPersonPaysField: %s", eachPersonPays);
+        this.eachPersonPays = new BigDecimal(eachPersonPays);
         // Total Amount
-        mTotalAmount = mEachPersonPays.multiply(mNumberOfPeople);
-        if (mTotalAmount.compareTo(mBillAmount) < 0) {
+        totalAmount = this.eachPersonPays.multiply(numberOfPeople);
+        if (totalAmount.compareTo(billAmount) < 0) {
             // Hack to avoid rounding below 0
-            mTotalAmount = mBillAmount;
+            totalAmount = billAmount;
         }
         // Tip Amount
-        mTipAmount = mTotalAmount.subtract(mBillAmount);
+        tipAmount = totalAmount.subtract(billAmount);
         // Tip Percent
-        if (mBillAmount.compareTo(BigDecimal.ZERO) != 0) {
-            mTipPercent = mTipAmount.divide(mBillAmount, ROUNDING_MODE);
-            mTipPercent = mTipPercent.multiply(ONE_HUNDRED);
+        if (billAmount.compareTo(BigDecimal.ZERO) != 0) {
+            tipPercent = tipAmount.divide(billAmount, ROUNDING_MODE);
+            tipPercent = tipPercent.multiply(ONE_HUNDRED);
         }
 
         // Populate the UI with new values

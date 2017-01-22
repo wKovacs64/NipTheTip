@@ -33,13 +33,13 @@ import android.view.MenuItem;
 import com.wkovacs64.nipthetip.R;
 import com.wkovacs64.nipthetip.ui.fragment.SettingsFragment;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public final class SettingsActivity extends AppCompatActivity {
 
-    @Bind(R.id.toolbar)
-    Toolbar mToolbar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +50,8 @@ public final class SettingsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         // Initialize the Toolbar
-        if (mToolbar != null) {
-            setSupportActionBar(mToolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             }

@@ -31,16 +31,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.mikepenz.aboutlibraries.LibsBuilder;
-import com.mikepenz.aboutlibraries.ui.LibsFragment;
+import com.mikepenz.aboutlibraries.ui.LibsSupportFragment;
 import com.wkovacs64.nipthetip.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public final class AboutActivity extends AppCompatActivity {
 
-    @Bind(R.id.toolbar)
-    Toolbar mToolbar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +51,8 @@ public final class AboutActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         // Initialize the Toolbar
-        if (mToolbar != null) {
-            setSupportActionBar(mToolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             }
@@ -75,20 +75,21 @@ public final class AboutActivity extends AppCompatActivity {
     }
 
     private void initFragment() {
-        // Create the Support fragment
-        LibsFragment supportFragment = new LibsBuilder()
+        // Create the About fragment
+        LibsSupportFragment aboutFragment = new LibsBuilder()
                 .withFields(R.string.class.getFields())
                 .withAboutIconShown(true)
                 .withAboutVersionShownName(true)
                 .withAboutDescription(getString(R.string.app_description))
                 .withLibraries(getResources().getStringArray(R.array.undetected_libraries))
-                .fragment();
+                .withLicenseShown(true)
+                .supportFragment();
 
         // Put it in the layout
-        if (supportFragment != null) {
+        if (aboutFragment != null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, supportFragment)
+                    .replace(R.id.fragment_container, aboutFragment)
                     .commit();
         }
     }
