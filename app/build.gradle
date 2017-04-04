@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 
 def gitHash = "git rev-parse --short HEAD".execute().text.trim()
 
@@ -64,12 +63,12 @@ dependencies {
         transitive = true
     }
     compile 'com.jakewharton:butterknife:8.4.0'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.jakewharton.timber:timber:4.5.1'
     compile 'frankiesardo:icepick:3.2.0'
-    apt 'frankiesardo:icepick-processor:3.2.0'
+    annotationProcessor 'frankiesardo:icepick-processor:3.2.0'
     compile 'com.google.dagger:dagger:2.8'
-    apt 'com.google.dagger:dagger-compiler:2.8'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
     provided 'org.glassfish:javax.annotation:10.0-b28'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
